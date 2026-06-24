@@ -41,7 +41,19 @@ const scrollToProjects = () => {
         </div>
       </div>
       
-      <!-- Right image area -->
+      <!-- Right image area with floating tech tags -->
+      <div class="hero-image-container">
+        <div class="avatar-glow"></div>
+        <div class="avatar-wrapper">
+          <img src="/images/profile.png" alt="SONGYOT WONGHATHAEN (NUT)" class="profile-img" />
+        </div>
+        
+        <!-- Floating Tech Badges -->
+        <div class="floating-tag tag-vue">Vue.js</div>
+        <div class="floating-tag tag-go">Go (Gin)</div>
+        <div class="floating-tag tag-nuxt">Nuxt</div>
+        <div class="floating-tag tag-flutter">Flutter</div>
+      </div>
     </div>
   </section>
 </template>
@@ -150,7 +162,7 @@ const scrollToProjects = () => {
   flex-wrap: wrap;
 }
 
-/* Hero Image with Glow effects */
+/* Hero Image with Glow effects & Floating Tags */
 .hero-image-container {
   position: relative;
   display: flex;
@@ -165,40 +177,115 @@ const scrollToProjects = () => {
   border-radius: 50%;
   padding: 8px;
   background: linear-gradient(135deg, var(--accent-indigo), var(--accent-purple), var(--accent-cyan));
-  animation: rotateGradient 8s linear infinite;
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+  background-size: 200% 200%;
+  animation: rotateGradient 6s linear infinite;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15),
+              0 0 30px rgba(99, 102, 241, 0.2);
+  z-index: 2;
 }
 
 .profile-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 20%;
   border-radius: 50%;
   border: 4px solid var(--bg-primary);
+  background-color: var(--bg-secondary);
 }
 
 .avatar-glow {
   position: absolute;
-  width: 340px;
-  height: 340px;
+  width: 350px;
+  height: 350px;
   border-radius: 50%;
   background: radial-gradient(circle, var(--accent-indigo) 0%, var(--accent-cyan) 100%);
-  filter: blur(35px);
-  opacity: 0.15;
-  z-index: -1;
+  filter: blur(40px);
+  opacity: 0.2;
+  z-index: 1;
   animation: pulseGlow 4s infinite alternate;
 }
 
 @keyframes rotateGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulseGlow {
   0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
+    transform: scale(0.95);
+    opacity: 0.15;
   }
   100% {
-    background-position: 0% 50%;
+    transform: scale(1.05);
+    opacity: 0.25;
   }
+}
+
+/* Floating Tech Tags */
+.floating-tag {
+  position: absolute;
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  z-index: 10;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  pointer-events: none;
+}
+
+.tag-vue {
+  top: 10%;
+  left: 0;
+  border-color: rgba(16, 185, 129, 0.3);
+  animation: floatTag1 6s ease-in-out infinite;
+}
+
+.tag-go {
+  bottom: 15%;
+  left: -5%;
+  border-color: rgba(6, 182, 212, 0.3);
+  animation: floatTag2 7s ease-in-out infinite;
+}
+
+.tag-nuxt {
+  top: 25%;
+  right: -5%;
+  border-color: rgba(16, 185, 129, 0.3);
+  animation: floatTag3 5s ease-in-out infinite;
+}
+
+.tag-flutter {
+  bottom: 25%;
+  right: 0;
+  border-color: rgba(59, 130, 246, 0.3);
+  animation: floatTag4 8s ease-in-out infinite;
+}
+
+@keyframes floatTag1 {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+@keyframes floatTag2 {
+  0%, 100% { transform: translateY(0) rotate(3deg); }
+  50% { transform: translateY(-8px) rotate(-3deg); }
+}
+
+@keyframes floatTag3 {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-12px) rotate(4deg); }
+}
+
+@keyframes floatTag4 {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  50% { transform: translateY(-6px) rotate(-2deg); }
 }
 
 /* Responsiveness */
@@ -249,6 +336,9 @@ const scrollToProjects = () => {
   .avatar-glow {
     width: 260px;
     height: 260px;
+  }
+  .floating-tag {
+    display: none; /* Hide floating tags on mobile to avoid clutter */
   }
 }
 </style>
